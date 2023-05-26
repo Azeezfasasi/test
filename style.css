@@ -10,10 +10,14 @@ label {
 
 input[type="text"],
 input[type="email"],
-input[type="submit"] {
+textarea {
   width: 100%;
   padding: 5px;
   margin-bottom: 10px;
+}
+
+textarea {
+  height: 100px;
 }
 
 input[type="submit"] {

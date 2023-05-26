@@ -1,7 +1,5 @@
 // Get the form element
 var form = document.getElementById('myForm');
-// Get the result element
-var result = document.getElementById('result');
 
 // Function to handle form submission
 function submitForm(event) {
@@ -10,21 +8,30 @@ function submitForm(event) {
   // Get form data
   var name = document.getElementById('name').value;
   var email = document.getElementById('email').value;
+  var message = document.getElementById('message').value;
 
-  // Create AJAX request
+  // Create a FormData object to store the form data
+  var formData = new FormData();
+  formData.append('name', name);
+  formData.append('email', email);
+  formData.append('message', message);
+
+  // Create a new XMLHttpRequest object
   var xhr = new XMLHttpRequest();
   xhr.open('POST', 'submit.php', true);
-  xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
-  // Handle response
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-      result.innerHTML = xhr.responseText;
+  // Set up the onload function
+  xhr.onload = function() {
+    if (xhr.status === 200) {
+      alert('Form submitted successfully!');
+      form.reset();
+    } else {
+      alert('Error submitting the form. Please try again later.');
     }
   };
 
-  // Send form data
-  xhr.send('name=' + encodeURIComponent(name) + '&email=' + encodeURIComponent(email));
+  // Send the request
+  xhr.send(formData);
 }
 
 // Add event listener for form submission
